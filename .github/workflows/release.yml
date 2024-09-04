@@ -1,0 +1,16 @@
+name: Publish release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 #v4.1.7
+      - run: |
+          gh release create $GITHUB_REF_NAME --title $GITHUB_REF_NAME --verify-tag --notes-from-tag
